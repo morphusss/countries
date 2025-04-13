@@ -1,0 +1,42 @@
+.header{
+    width: 100%;
+    height: 7vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1%;
+    background-color: hsl(0, 0%, 100%);
+    
+    box-shadow: -2px 1px 15px lightgray;
+    position: sticky;
+}
+
+.header-right-wrapper{
+    width: 15%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.switch-theme{
+    background-color: transparent;
+    border: none;
+}
+
+.button-wrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: end;
+    gap: 5px;
+}
+
+.dark-switch{
+    visibility: inherit;
+}
+
+.light-switch{
+    visibility: inherit;
+}

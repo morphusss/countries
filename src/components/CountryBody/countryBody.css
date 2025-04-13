@@ -1,0 +1,90 @@
+
+.country{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.country .upper-container{
+    width: 90%;
+    height: 15vh;
+    display: flex;
+    align-items: center;
+}
+
+
+
+.country .upper-container .back-button{
+    position: relative;
+    width: 10vw;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    padding-left: 30%;
+    font-size: 14px;
+    border: 0px;
+    border-radius: 5px;
+    background-color: hsl(0, 0%, 100%);
+    box-shadow: -2px 1px 15px lightgray;
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 300;
+    
+}
+
+.back-arrow{
+    position: absolute;
+    left: 5%;
+    top: 10%;
+}
+
+.lower-container{
+    width: 90%;
+    height: 85vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-container,
+.right-container{
+    width: 45%;
+    height: 100%;
+
+}
+
+.country-flag-wrapper{
+    width: 100%;
+    height: 100%;
+}
+
+.country-big-flag{
+    max-width: 100%;
+    box-shadow: -2px 1px 15px lightgray;
+}
+
+.right-container{
+    display: flex;
+    flex-direction: column;
+    gap:5%;
+}
+
+.country-info-wrapper{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.country-info-left,
+.country-info-right{
+    width: 45%;
+    display: flex;
+
+}
+
+.country-paragraph{
+    font-weight: 600;
+}
