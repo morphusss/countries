@@ -1,0 +1,16 @@
+.root{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.upperWrapper{
+    width: 100%;
+    height: 7vh;
+}
+
+.lowerWrapper{
+    width: 100%;
+    height: 93vh;
+}

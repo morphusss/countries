@@ -1,0 +1,48 @@
+ul{
+    list-style-type: none;
+}
+
+.root{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    align-items: center;
+    background-color: hsl(0, 0%, 98%);
+}
+
+.upperWrapper{
+    width: 90%;
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2%;
+    padding-left: 2%;
+    padding-right: 0%;
+}
+
+.searchField{
+    width: 30%;
+    height: 100%;
+}
+
+.lowerWrapper{
+    width: 100%;
+    height: 95vh;
+}
+
+.countriesListWrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 0% 3% 0% 5%;
+}
+
+.countriesList{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
