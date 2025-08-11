@@ -4,21 +4,30 @@ import backArrow from "@svg/black/backArrow.svg";
 import backArrow_white from "@svg/white/backArrow.svg";
 import type { CurrentCountry } from "@src/types/country.types";
 import styles from "./CountryPageComponent.module.css";
+import { returnCorrectPopulationValue } from "@components/IndividualCountryCard";
 
-//handler for population ("12333" => 12,333)
-//handler for currencies (name)
-//handler for languages (list of langs)
 //handler for border countries ("UKR" => "Ukraine")
+
+type currenciesType = {
+  code: string;
+  name: string;
+  symbol: string;
+};
+
+type languagesType = {
+  iso639_1: string;
+  iso639_2: string;
+  name: string;
+  nativeName: string;
+};
+
+const countryJSONList = data as CurrentCountry[];
 
 export function CountryPageComponent() {
   const params = useParams<{ country: string }>();
   let currentCountry: CurrentCountry = data.find(
     (country) => country.name === params.country
   ) as CurrentCountry;
-
-  if (!currentCountry) {
-    return <Navigate to={"/"} />;
-  }
 
   const leftInformationTable = [
     {
@@ -58,6 +67,75 @@ export function CountryPageComponent() {
     },
   ];
 
+  function showCorrectSimpleInfo(info: {
+    title: string;
+    dataForTitle: string | number;
+  }) {
+    if (typeof info.dataForTitle === "number") {
+      return returnCorrectPopulationValue(String(info.dataForTitle));
+    }
+
+    return info.dataForTitle;
+  }
+
+  function showCorrectComplexInfo(info: {
+    title: string;
+    dataForTitle: string[] | currenciesType[] | languagesType[];
+  }) {
+    let output: string = "";
+    switch (info.title) {
+      case rightInformationTable[0].title:
+        output = `${(info.dataForTitle as string[]).map((item) => {
+          return item;
+        })}`;
+        return output;
+        break;
+      case rightInformationTable[1].title:
+        output = `${(info.dataForTitle as currenciesType[]).map((item) => {
+          return item.code;
+        })}`;
+        return output;
+        break;
+      case rightInformationTable[2].title:
+        output = `${(info.dataForTitle as languagesType[]).map((language) => {
+          return language.name;
+        })}`; // What the fuck happens here :/
+        return output;
+        break;
+      default:
+        return (output = "Something went wrong... ");
+    }
+  }
+
+  function showCorrectListOfBorderCountries(countries: string[] | undefined) {
+    let countriesList: string[] = [];
+    if (!countries) {
+      countriesList.push("None");
+    } else {
+      for (let i = 0; i < countries.length; i++) {
+        const countryFullName = countryJSONList.filter(
+          (item) => item.alpha3Code === countries[i]
+        );
+        countriesList.push(countryFullName[0].name);
+      }
+    }
+    return (
+      <>
+      {countriesList.map((country) => (
+        <Link to={`/${country}`}>
+        <li className={styles.borderCountryWrapper}>
+          {country}
+        </li>
+        </Link>
+      ))}
+      </>
+    );
+  }
+
+  if (!currentCountry) {
+    return <Navigate to={"/"} />;
+  }
+
   return (
     <>
       <section className={styles.root}>
@@ -91,7 +169,7 @@ export function CountryPageComponent() {
                   {leftInformationTable.map((item) => (
                     <li className={styles.dedicatedInfoWrapper}>
                       <span className={styles.infoTitle}>{item.title}: </span>
-                      {item.dataForTitle}
+                      {showCorrectSimpleInfo(item)}
                     </li>
                   ))}
                 </ul>
@@ -101,7 +179,7 @@ export function CountryPageComponent() {
                   {rightInformationTable.map((item) => (
                     <li className={styles.dedicatedInfoWrapper}>
                       <span className={styles.infoTitle}>{item.title}: </span>
-                      {/* {item.dataForTitle} */} none
+                      {showCorrectComplexInfo(item)}
                     </li>
                   ))}
                 </ul>
@@ -110,7 +188,7 @@ export function CountryPageComponent() {
             <section className={styles.borderListWrapper}>
               <span className={styles.borderListTitle}>Border Countries: </span>
               <ul className={styles.borderList}>
-                {/* Here must be an border function that must be mapped */}
+                {showCorrectListOfBorderCountries(currentCountry.borders)}
               </ul>
             </section>
           </section>
