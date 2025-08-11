@@ -13,8 +13,6 @@
     font-size: 14px;
     border: 0px;
     border-radius: 5px;
-    background-color: hsl(0, 0%, 100%);
-    box-shadow: -2px 1px 15px lightgray;
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 500;
@@ -22,7 +20,20 @@
 
 .searchLogo{
     position: absolute;
-    left: 2%;
+    left: 3%;
     top: 50%;
     translate: 0 -50%;
+}
+
+.searchInputField[data-theme='true']{
+    background-color: #2b3743;
+    color: white;
+    box-shadow: -2px 1px 15px #1e2b34;
+
+}
+
+.searchInputField[data-theme='false']{
+    background-color: hsl(0, 0%, 100%);
+    color: black;
+    box-shadow: -2px 1px 15px lightgray;
 }

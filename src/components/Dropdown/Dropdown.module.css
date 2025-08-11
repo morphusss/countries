@@ -81,3 +81,45 @@ button{
 .root .filterButton:hover{
     background-color: hsl(0, 0%, 95%);
 }
+
+.filterButton[data-theme='true']{
+    background-color: #2b3743;
+    color: white;
+    box-shadow: -2px 1px 15px #1e2b34;
+}
+.filterButton:hover[data-theme='true']{
+    background-color: #27323e;
+    color: white;
+    box-shadow: -2px 1px 15px #1e2b34;
+}
+
+.filterButton[data-theme='false']{
+    background-color: hsl(0, 0%, 100%);
+    color: black;
+    box-shadow: -2px 1px 15px lightgray;
+}
+
+.root .options .optionTitleButton[data-theme='true']{
+    color: white;
+}
+
+.root .options .optionTitleButton:hover[data-theme='true']{
+    color: white;
+    background-color: #27323e;
+}
+
+.root .options .optionTitleButton[data-theme='false']{
+    color: black;
+}
+
+.options.optionVisible[data-theme='true']{
+    background-color: #2b3743;
+    box-shadow: -2px 1px 15px #1e2b34;
+
+}
+
+.options.optionVisible[data-theme='false']{
+    background-color: hsl(0, 0%, 100%);
+    box-shadow: -2px 1px 15px lightgray;
+
+}

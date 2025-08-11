@@ -6,6 +6,8 @@ import { type CurrentCountry } from "@src/types/country.types";
 import data from "@src/json/data.json";
 import styles from "./HomePageComponent.module.css";
 import { EmptyArrayHandler } from "@components/EmptyArrayHandler";
+import { useSelector } from "react-redux";
+import { themeStatusStoreSelector } from "@src/store/themeStatusStore/themeStatusStore.selector";
 
 const countries = data as CurrentCountry[];
 
@@ -15,6 +17,14 @@ export function HomePageComponent() {
     label: string;
     value: string;
   } | null>(null);
+  const isDarkSelector = useSelector(themeStatusStoreSelector);
+
+  function returnCorrectTheme() {
+    const isDarkTheme = JSON.parse(localStorage.getItem("countryIsDark")!);
+    if(isDarkTheme) return "true";
+    else if(!isDarkTheme) return "false";
+    else if(isDarkSelector) return `${isDarkSelector}`;
+  }
 
   let filteredCountries: CurrentCountry[] = [];
   if (selectedFilter && searchCountry) {
@@ -59,7 +69,7 @@ export function HomePageComponent() {
 
   return (
     <>
-      <section className={styles.root}>
+      <section className={styles.root} data-theme={returnCorrectTheme()}>
         <section className={styles.upperWrapper}>
           <section className={styles.searchField}>
             <Search

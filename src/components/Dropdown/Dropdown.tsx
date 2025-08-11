@@ -6,10 +6,12 @@ import {
   type SetStateAction,
 } from "react";
 import openDropdown from "@svg/black/down.svg";
-import openDropdown_white from "@svg/white/down.svg";
+import openDropdown_white from "@svg/white/down_white.svg";
 import closeDropdown from "@svg/black/up.svg";
-import closeDropdown_white from "@svg/white/up.svg";
+import closeDropdown_white from "@svg/white/up_white.svg";
 import styles from "./Dropdown.module.css";
+import { themeStatusStoreSelector } from "@src/store/themeStatusStore/themeStatusStore.selector";
+import { useSelector } from "react-redux";
 
 type Props = {
   selectedFilter: {
@@ -50,14 +52,25 @@ const dropdownOptions = [
 export function Dropdown(props: Props) {
   const { selectedFilter, setSelectedFilter } = props;
   const [isDropdownFilterOpened, setIsDropdownFilterOpened] = useState(false);
+  const isDarkTheme: boolean = JSON.parse(
+    localStorage.getItem("countryIsDark")!
+  );
+  const isDarkSelector = useSelector(themeStatusStoreSelector);
+  
+  function returnCorrectTheme() {
+    const isDarkTheme = JSON.parse(localStorage.getItem("countryIsDark")!);
+    if(isDarkTheme) return "true";
+    else if(!isDarkTheme) return "false";
+    else if(isDarkSelector) return `${isDarkSelector}`;
+  }
 
   const dropdownRef = useRef<null | HTMLElement>(null);
 
-  function renderImageComponent() {
+  function checkIfDropdownOpened() {
     if (isDropdownFilterOpened) {
-      return <img src={closeDropdown} />;
+      return isDarkTheme ? closeDropdown_white : closeDropdown;
     } else {
-      return <img src={openDropdown} />;
+      return isDarkTheme ? openDropdown_white : openDropdown;
     }
   }
 
@@ -82,6 +95,7 @@ export function Dropdown(props: Props) {
       <section className={styles.root} ref={dropdownRef}>
         <button
           className={styles.filterButton}
+          data-theme={returnCorrectTheme()}
           onClick={() => {
             setIsDropdownFilterOpened((prev) => !prev);
           }}
@@ -89,16 +103,19 @@ export function Dropdown(props: Props) {
           <span>
             {selectedFilter ? selectedFilter.label : "Filter by Region"}
           </span>
-          <img src={isDropdownFilterOpened ? closeDropdown: openDropdown} className={styles.buttonImg} />
+          <img src={checkIfDropdownOpened()} className={styles.buttonImg} />
         </button>
 
         <section
-          className={ `${styles.options} ${isDropdownFilterOpened ? `${styles.optionVisible}` : " "}`
-          }
-        >
+          className={`${styles.options} ${
+            isDropdownFilterOpened ? `${styles.optionVisible}` : " "
+          }`}
+          data-theme={returnCorrectTheme()}
+          >
           {dropdownOptions.map((option, idx) => (
             <button
               className={styles.optionTitleButton}
+              data-theme={returnCorrectTheme()}
               onClick={() => {
                 setSelectedFilter(option);
                 setIsDropdownFilterOpened(false);

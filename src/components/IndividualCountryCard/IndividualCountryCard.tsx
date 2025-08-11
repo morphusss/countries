@@ -1,6 +1,8 @@
 import type { CurrentCountry } from "@src/types/country.types";
 import { Link } from "react-router-dom";
 import styles from "./IndividualCountryCard.module.css";
+import { themeStatusStoreSelector } from "@src/store/themeStatusStore/themeStatusStore.selector";
+import { useSelector } from "react-redux";
 
 type Props = {
   data: CurrentCountry;
@@ -25,6 +27,15 @@ export function returnCorrectPopulationValue(originalValue: string) {
 
 
 export function IndividualCountryCard({ data }: Props) {
+  const isDarkSelector = useSelector(themeStatusStoreSelector);
+  
+  function returnCorrectTheme() {
+    const isDarkTheme = JSON.parse(localStorage.getItem("countryIsDark")!);
+    if(isDarkTheme) return "true";
+    else if(!isDarkTheme) return "false";
+    else if(isDarkSelector) return `${isDarkSelector}`;
+  }
+  
   const primaryInfoTable = [
     {
       title: "Population",
@@ -43,8 +54,8 @@ export function IndividualCountryCard({ data }: Props) {
 
   return (
     <>
-      <li className={styles.root} key={data.name}>
-        <Link to={`/${data.name}`} style={{ textDecoration: 'none', color: "#242424" }}>
+      <li className={styles.root} key={data.name} data-theme={returnCorrectTheme()}>
+        <Link to={`/${data.name}`} style={{ textDecoration: 'none' }} data-theme={returnCorrectTheme()}>
           <section className={styles.upperWrapper}>
             <img
               src={data.flag}

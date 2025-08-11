@@ -14,3 +14,13 @@
     width: 100%;
     height: 93vh;
 }
+
+[data-theme='true'] {
+    color: white;   
+    background-color: #202d36;
+}
+
+[data-theme='false'] {
+    background-color: white;
+    color: #242424;
+}

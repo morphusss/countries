@@ -1,12 +1,13 @@
 import { Link, Navigate, useParams } from "react-router-dom";
 import data from "@src/json/data.json";
-import backArrow from "@svg/black/backArrow.svg";
-import backArrow_white from "@svg/white/backArrow.svg";
+import BackArrow from "@svg/black/backArrow.svg";
+import BackArrow_white from "@svg/white/backArrow_white.svg";
 import type { CurrentCountry } from "@src/types/country.types";
 import styles from "./CountryPageComponent.module.css";
 import { returnCorrectPopulationValue } from "@components/IndividualCountryCard";
-
-//handler for border countries ("UKR" => "Ukraine")
+import { FailedPageLoad } from "@components/FailedPageLoad";
+import { themeStatusStoreSelector } from "@src/store/themeStatusStore/themeStatusStore.selector";
+import { useSelector } from "react-redux";
 
 type currenciesType = {
   code: string;
@@ -28,6 +29,14 @@ export function CountryPageComponent() {
   let currentCountry: CurrentCountry = data.find(
     (country) => country.name === params.country
   ) as CurrentCountry;
+  const isDarkTheme = JSON.parse(localStorage.getItem("countryIsDark")!);
+  const isDarkSelector = useSelector(themeStatusStoreSelector);
+
+  function returnCorrectTheme() {
+    if (isDarkTheme) return "true";
+    else if (!isDarkTheme) return "false";
+    else if (isDarkSelector) return `${isDarkSelector}`;
+  }
 
   const leftInformationTable = [
     {
@@ -119,81 +128,120 @@ export function CountryPageComponent() {
         countriesList.push(countryFullName[0].name);
       }
     }
-    return (
-      <>
-      {countriesList.map((country) => (
-        <Link to={`/${country}`}>
-        <li className={styles.borderCountryWrapper}>
-          {country}
-        </li>
-        </Link>
-      ))}
-      </>
-    );
+    if (!countriesList.includes("None")) {
+      return (
+        <>
+          {countriesList.map((country) => (
+            <Link to={`/${country}`} data-theme={returnCorrectTheme()}>
+              <li
+                className={styles.borderCountryWrapper}
+                data-theme={returnCorrectTheme()}
+              >
+                {country}
+              </li>
+            </Link>
+          ))}
+        </>
+      );
+    } else {
+      return (
+        <>
+          {countriesList.map((country) => (
+            <Link to={`/`} data-theme={returnCorrectTheme()}>
+              <li
+                className={styles.borderCountryWrapper}
+                data-theme={returnCorrectTheme()}
+              >
+                {country}
+              </li>
+            </Link>
+          ))}
+        </>
+      );
+    }
   }
 
   if (!currentCountry) {
     return <Navigate to={"/"} />;
   }
 
-  return (
-    <>
-      <section className={styles.root}>
-        <section className={styles.upperWrapper}>
-          <section className={styles.backToHomeButtonWrapper}>
-            <Link to="/">
-              <section className={styles.backToHomeButton}>
-                <img src={backArrow} className={styles.backImg} />
-                Back
+  try {
+    return (
+      <>
+        <section className={styles.root}>
+          <section className={styles.upperWrapper}>
+            <section className={styles.backToHomeButtonWrapper}>
+              <Link to="/" data-theme={returnCorrectTheme()}>
+                <section
+                  className={styles.backToHomeButton}
+                  data-theme={returnCorrectTheme()}
+                >
+                  <img
+                    src={isDarkTheme ? BackArrow_white : BackArrow}
+                    className={styles.backImg}
+                  />
+                  Back
+                </section>
+              </Link>
+            </section>
+          </section>
+          <section className={styles.lowerWrapper}>
+            <section className={styles.leftWrapper}>
+              <section className={styles.countryFlagWrapper}>
+                <img
+                  src={currentCountry.flag}
+                  alt="Country Flag"
+                  className={styles.countryFlag}
+                  data-theme={returnCorrectTheme()}
+                />
               </section>
-            </Link>
-          </section>
-        </section>
-        <section className={styles.lowerWrapper}>
-          <section className={styles.leftWrapper}>
-            <section className={styles.countryFlagWrapper}>
-              <img
-                src={currentCountry.flag}
-                alt="Country Flag"
-                className={styles.countryFlag}
-              />
             </section>
-          </section>
-          <section className={styles.rightWrapper}>
-            <section className={styles.titleWrapper}>
-              <h2>{currentCountry.name}</h2>
-            </section>
-            <section className={styles.infoWrapper}>
-              <section className={styles.infoLeftWrapper}>
-                <ul className={styles.infoTable}>
-                  {leftInformationTable.map((item) => (
-                    <li className={styles.dedicatedInfoWrapper}>
-                      <span className={styles.infoTitle}>{item.title}: </span>
-                      {showCorrectSimpleInfo(item)}
-                    </li>
-                  ))}
+            <section className={styles.rightWrapper}>
+              <section className={styles.titleWrapper}>
+                <h2>{currentCountry.name}</h2>
+              </section>
+              <section className={styles.infoWrapper}>
+                <section className={styles.infoLeftWrapper}>
+                  <ul className={styles.infoTable}>
+                    {leftInformationTable.map((item) => (
+                      <li className={styles.dedicatedInfoWrapper}>
+                        <span className={styles.infoTitle}>{item.title}: </span>
+                        {showCorrectSimpleInfo(item)}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+                <section className={styles.infoRightWrapper}>
+                  <ul className={styles.infoTable}>
+                    {rightInformationTable.map((item) => (
+                      <li className={styles.dedicatedInfoWrapper}>
+                        <span className={styles.infoTitle}>{item.title}: </span>
+                        {showCorrectComplexInfo(item)}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              </section>
+              <section className={styles.borderListWrapper}>
+                <span className={styles.borderListTitle}>
+                  Border Countries:{" "}
+                </span>
+                <ul className={styles.borderList}>
+                  {showCorrectListOfBorderCountries(currentCountry.borders)}
                 </ul>
               </section>
-              <section className={styles.infoRightWrapper}>
-                <ul className={styles.infoTable}>
-                  {rightInformationTable.map((item) => (
-                    <li className={styles.dedicatedInfoWrapper}>
-                      <span className={styles.infoTitle}>{item.title}: </span>
-                      {showCorrectComplexInfo(item)}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            </section>
-            <section className={styles.borderListWrapper}>
-              <span className={styles.borderListTitle}>Border Countries: </span>
-              <ul className={styles.borderList}>
-                {showCorrectListOfBorderCountries(currentCountry.borders)}
-              </ul>
             </section>
           </section>
         </section>
-      </section>
-    </>
-  );
+      </>
+    );
+  } catch (error) {
+    return (
+      <>
+        <section className={styles.root}>
+          <FailedPageLoad />
+        </section>
+      </>
+    );
+  }
 }

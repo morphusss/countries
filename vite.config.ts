@@ -8,6 +8,7 @@ export default defineConfig({
       '@components': path.resolve(__dirname, './src/components'),
       '@svg': path.resolve(__dirname, './src/assets/svg'),
       '@src': path.resolve(__dirname, './src'),
+      '@store': path.resolve(__dirname, './src/store'),
     }
   },
   plugins: [react()],

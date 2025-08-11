@@ -31,8 +31,6 @@ a{
     font-size: 14px;
     border: 0px;
     border-radius: 5px;
-    background-color: hsl(0, 0%, 100%);
-    box-shadow: -2px 1px 15px lightgray;
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 500;
@@ -141,4 +139,55 @@ a{
     border-radius: 5px;
     margin-right: 2%;
     margin-bottom: 2%;
+}
+
+
+.backToHomeButton[data-theme='true']{
+    background-color: #2b3743;
+    box-shadow: -2px 1px 15px #1e2b34;
+}
+
+.backToHomeButton:hover[data-theme='true']{
+    background-color: #27323e;
+    box-shadow: -2px 1px 15px #1e2b34;
+}
+
+.backToHomeButton[data-theme='false']{
+    background-color: hsl(0, 0%, 100%);
+    box-shadow: -2px 1px 15px lightgray;
+}
+
+.countryFlag[data-theme='true']{
+    color: white;
+    box-shadow: -2px 1px 15px #1e2b34;
+    
+}
+
+.countryFlag[data-theme='false']{
+    color: black;
+    box-shadow: -2px 1px 15px lightgray;
+}
+
+.borderCountryWrapper[data-theme='true']{
+    background-color: #2b3743;
+    box-shadow: -2px 1px 15px #1e2b34;
+}
+
+.borderCountryWrapper:hover[data-theme='true']{
+    background-color: #27323e;
+    box-shadow: -2px 1px 15px #1e2b34;
+}
+
+.borderCountryWrapper[data-theme='false']{
+    background-color: hsl(0, 0%, 100%);
+    box-shadow: -2px 1px 15px lightgray;
+}
+
+a[data-theme='true']{
+    color: white;
+
+}
+
+a[data-theme='false']{
+    color: black;
 }

@@ -65,3 +65,24 @@ a:visited{
     font-weight: 600;
 }
 
+.root[data-theme='true']{
+    background-color: #2b3743;
+    color: white;
+    box-shadow: -2px 1px 15px #1e2b34;
+
+}
+
+.root[data-theme='false']{
+    background-color: hsl(0, 0%, 100%);
+    color: black;
+    box-shadow: -2px 1px 15px lightgray;
+}
+
+a[data-theme='true']{
+    color: white;
+
+}
+
+a[data-theme='false']{
+    color: black;
+}
