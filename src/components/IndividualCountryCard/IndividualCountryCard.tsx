@@ -1,8 +1,8 @@
+import { themeStatusStoreSelector } from "@src/store/themeStatusStore/themeStatusStore.selector";
+import { useSelector } from "react-redux";
 import type { CurrentCountry } from "@src/types/country.types";
 import { Link } from "react-router-dom";
 import styles from "./IndividualCountryCard.module.css";
-import { themeStatusStoreSelector } from "@src/store/themeStatusStore/themeStatusStore.selector";
-import { useSelector } from "react-redux";
 
 type Props = {
   data: CurrentCountry;

@@ -1,9 +1,9 @@
+import { themeStatusStoreSelector } from "@src/store/themeStatusStore/themeStatusStore.selector";
 import type { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { useSelector } from "react-redux";
 import searchLogo from "@svg/black/search.svg";
 import searchLogo_white from "@svg/white/search_white.svg";
 import styles from "./SearchComponent.module.css";
-import { themeStatusStoreSelector } from "@src/store/themeStatusStore/themeStatusStore.selector";
-import { useSelector } from "react-redux";
 
 type Props = {
   searchCountry: string;

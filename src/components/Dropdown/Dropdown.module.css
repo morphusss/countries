@@ -123,3 +123,13 @@ button{
     box-shadow: -2px 1px 15px lightgray;
 
 }
+
+@media screen and (max-width:800px){
+    .root .filterButton{
+        width: 100%;
+    }
+
+    .root .filterButton .buttonImg{
+        right: 5%;
+    }
+}

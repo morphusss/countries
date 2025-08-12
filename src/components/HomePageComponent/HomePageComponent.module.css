@@ -28,7 +28,7 @@ ul{
 
 .lowerWrapper{
     width: 100%;
-    height: 95vh;
+    height: 90%;
 }
 
 .countriesListWrapper{
@@ -48,4 +48,44 @@ ul{
 
 .root[data-theme='false']{
     background-color: hsl(0, 0%, 95%);
+}
+
+@media screen and (max-width:800px) {
+    
+    .root{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .upperWrapper{
+        width: 100%;
+        height: 20%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 2% 4% 2% 4%;
+    }
+
+    .searchField{
+        width: 100%;
+        height: fit-content;
+    }
+    
+    .lowerWrapper{
+        width: 100%;
+        height: 80%;
+    }
+
+    .countriesList{
+        justify-content: center;
+    }
+
+}
+
+@media screen and (max-width:500px) {
+    .upperWrapper{
+        height: 17%;
+    }
 }

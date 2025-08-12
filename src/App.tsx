@@ -1,8 +1,8 @@
+import { useEffect } from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "@src/pages/home";
 import { Country } from "@src/pages/country";
 import "./App.css";
-import { useEffect } from "react";
 
 function App() {
   const isDarkTheme = localStorage.getItem("countryIsDark");

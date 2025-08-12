@@ -1,3 +1,4 @@
+import { themeStatusStoreSelector } from "@src/store/themeStatusStore/themeStatusStore.selector";
 import {
   useEffect,
   useRef,
@@ -5,13 +6,12 @@ import {
   type Dispatch,
   type SetStateAction,
 } from "react";
+import { useSelector } from "react-redux";
 import openDropdown from "@svg/black/down.svg";
 import openDropdown_white from "@svg/white/down_white.svg";
 import closeDropdown from "@svg/black/up.svg";
 import closeDropdown_white from "@svg/white/up_white.svg";
 import styles from "./Dropdown.module.css";
-import { themeStatusStoreSelector } from "@src/store/themeStatusStore/themeStatusStore.selector";
-import { useSelector } from "react-redux";
 
 type Props = {
   selectedFilter: {

@@ -1,13 +1,13 @@
+import { themeStatusStoreSelector } from "@src/store/themeStatusStore/themeStatusStore.selector";
+import { returnCorrectPopulationValue } from "@components/IndividualCountryCard";
+import { FailedPageLoad } from "@components/FailedPageLoad";
 import { Link, Navigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import type { CurrentCountry } from "@src/types/country.types";
 import data from "@src/json/data.json";
 import BackArrow from "@svg/black/backArrow.svg";
 import BackArrow_white from "@svg/white/backArrow_white.svg";
-import type { CurrentCountry } from "@src/types/country.types";
 import styles from "./CountryPageComponent.module.css";
-import { returnCorrectPopulationValue } from "@components/IndividualCountryCard";
-import { FailedPageLoad } from "@components/FailedPageLoad";
-import { themeStatusStoreSelector } from "@src/store/themeStatusStore/themeStatusStore.selector";
-import { useSelector } from "react-redux";
 
 type currenciesType = {
   code: string;
@@ -108,7 +108,7 @@ export function CountryPageComponent() {
       case rightInformationTable[2].title:
         output = `${(info.dataForTitle as languagesType[]).map((language) => {
           return language.name;
-        })}`; // What the fuck happens here :/
+        })}`;
         return output;
         break;
       default:
@@ -128,6 +128,7 @@ export function CountryPageComponent() {
         countriesList.push(countryFullName[0].name);
       }
     }
+    
     if (!countriesList.includes("None")) {
       return (
         <>

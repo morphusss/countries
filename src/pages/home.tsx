@@ -1,8 +1,8 @@
 import { Header } from "@components/Header";
 import { HomePageComponent } from "@components/HomePageComponent";
 import { themeStatusStoreSelector } from "@src/store/themeStatusStore/themeStatusStore.selector";
-import styles from "@src/styles/pages.module.css";
 import { useSelector } from "react-redux";
+import styles from "@src/styles/pages.module.css";
 
 export function Home() {
   const isDarkSelector = useSelector(themeStatusStoreSelector);

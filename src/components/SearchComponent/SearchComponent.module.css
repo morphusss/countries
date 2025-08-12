@@ -37,3 +37,9 @@
     color: black;
     box-shadow: -2px 1px 15px lightgray;
 }
+
+@media screen and (max-width:800px){
+    .searchInputField{
+        padding: 2% 2% 2% 10%;
+    }
+}

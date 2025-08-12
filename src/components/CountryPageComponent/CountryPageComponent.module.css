@@ -10,11 +10,12 @@ a{
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: auto;
 }
 
 .root .upperWrapper{
     width: 90%;
-    height: 15vh;
+    height: 15%;
     display: flex;
     align-items: center;
 }
@@ -27,7 +28,7 @@ a{
     height: 5vh;
     display: flex;
     align-items: center;
-    padding-left: 30%;
+    padding-left: 50%;
     font-size: 14px;
     border: 0px;
     border-radius: 5px;
@@ -46,7 +47,7 @@ a{
 
 .lowerWrapper{
     width: 90%;
-    height: 85vh;
+    height: 85%;
     display: flex;
     justify-content: space-between;
 }
@@ -190,4 +191,67 @@ a[data-theme='true']{
 
 a[data-theme='false']{
     color: black;
+}
+
+@media screen and (max-width:800px) {
+    .root .upperWrapper .backToHomeButton{
+        width: 20vw;
+    }
+
+
+    .lowerWrapper{
+        width: 90%;
+        height: 85%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+       
+    }
+    
+    .leftWrapper,
+    .rightWrapper{
+        width: 100%;
+        height: fit-content;
+    
+    }
+
+    .infoWrapper{
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+    }
+    
+    .infoLeftWrapper,
+    .infoRightWrapper{
+        width: 100%;
+        height: fit-content;
+        display: flex;
+    
+    }
+
+    .infoLeftWrapper{
+        margin-top: 2%;
+    }
+
+    .infoRightWrapper{
+        margin-top: 10%;
+    }
+
+    .borderListWrapper{
+        margin-top: 5%;
+        flex-direction: column;
+    }
+
+    .borderListTitle{
+        width: 100%;
+    }
+
+    .borderList{
+        width: 100%;
+        margin-top: 2%;
+        margin-bottom: 10%;
+    }
 }

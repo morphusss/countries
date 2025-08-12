@@ -1,7 +1,7 @@
-import { ThemeSwitcher } from "@components/ThemeSwitcher"
-import styles from "./Header.module.css"
 import { themeStatusStoreSelector } from "@src/store/themeStatusStore/themeStatusStore.selector";
+import { ThemeSwitcher } from "@components/ThemeSwitcher"
 import { useSelector } from "react-redux";
+import styles from "./Header.module.css"
 
 export function Header() {
     const isDarkSelector = useSelector(themeStatusStoreSelector);

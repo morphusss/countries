@@ -1,13 +1,13 @@
+import { setThemeStatus } from "@src/store/themeStatusStore/themeStatusStore.slice";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import MoonImage from "@svg/black/moon.svg";
 import SunImage from "@svg/white/sun_white.svg";
 import styles from "./ThemeSwitcher.module.css";
-import { useDispatch } from "react-redux";
-import { setThemeStatus } from "@src/store/themeStatusStore/themeStatusStore.slice";
 
 export function ThemeSwitcher() {
   const dispatch = useDispatch();
-  const [isDark, setIsDark] = useState(false);
+  const [ , setIsDark] = useState(false);
   const isDarkThemeLocalStored: boolean = JSON.parse(
     localStorage.getItem("countryIsDark")!
   );
