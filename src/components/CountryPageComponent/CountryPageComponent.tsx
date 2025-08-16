@@ -22,11 +22,64 @@ type languagesType = {
   nativeName: string;
 };
 
+function getLeftInfoTable(currentCountry: CurrentCountry) {
+  const leftInformationTable: {
+    title: string;
+    dataForTitle: string | number;
+  }[] = [
+    {
+      title: "Native Name",
+      dataForTitle: currentCountry.nativeName || " ",
+    },
+    {
+      title: "Population",
+      dataForTitle: currentCountry.population || " ",
+    },
+    {
+      title: "Region",
+      dataForTitle: currentCountry.region || " ",
+    },
+    {
+      title: "Sub Region",
+      dataForTitle: currentCountry.subregion || " ",
+    },
+    {
+      title: "Capital",
+      dataForTitle: currentCountry.capital || " ",
+    },
+  ];
+
+  return leftInformationTable;
+}
+
+function getRightInfoTable(currentCountry: CurrentCountry) {
+  const rightInformationTable: [
+    { title: "Top Level Domain"; dataForTitle: string[] },
+    { title: "Currencies"; dataForTitle: currenciesType[] },
+    { title: "Languages"; dataForTitle: languagesType[] }
+  ] = [
+    {
+      title: "Top Level Domain",
+      dataForTitle: currentCountry.topLevelDomain || [],
+    },
+    {
+      title: "Currencies",
+      dataForTitle: currentCountry.currencies || [],
+    },
+    {
+      title: "Languages",
+      dataForTitle: currentCountry.languages || [],
+    },
+  ];
+
+  return rightInformationTable;
+}
+
 const countryJSONList = data as CurrentCountry[];
 
 export function CountryPageComponent() {
   const params = useParams<{ country: string }>();
-  let currentCountry: CurrentCountry = data.find(
+  let currentCountry: CurrentCountry = countryJSONList.find(
     (country) => country.name === params.country
   ) as CurrentCountry;
   const isDarkTheme = JSON.parse(localStorage.getItem("countryIsDark")!);
@@ -38,43 +91,8 @@ export function CountryPageComponent() {
     else if (isDarkSelector) return `${isDarkSelector}`;
   }
 
-  const leftInformationTable = [
-    {
-      title: "Native Name",
-      dataForTitle: currentCountry.nativeName,
-    },
-    {
-      title: "Population",
-      dataForTitle: currentCountry.population,
-    },
-    {
-      title: "Region",
-      dataForTitle: currentCountry.region,
-    },
-    {
-      title: "Sub Region",
-      dataForTitle: currentCountry.subregion,
-    },
-    {
-      title: "Capital",
-      dataForTitle: currentCountry.capital,
-    },
-  ];
-
-  const rightInformationTable = [
-    {
-      title: "Top Level Domain",
-      dataForTitle: currentCountry.topLevelDomain,
-    },
-    {
-      title: "Currencies",
-      dataForTitle: currentCountry.currencies,
-    },
-    {
-      title: "Languages",
-      dataForTitle: currentCountry.languages,
-    },
-  ];
+  const leftInformationTable = getLeftInfoTable(currentCountry);
+  const rightInformationTable = getRightInfoTable(currentCountry);
 
   function showCorrectSimpleInfo(info: {
     title: string;
@@ -94,23 +112,24 @@ export function CountryPageComponent() {
     let output: string = "";
     switch (info.title) {
       case rightInformationTable[0].title:
-        output = `${(info.dataForTitle as string[]).map((item) => {
-          return item;
-        })}`;
+        output =
+          `${(info.dataForTitle as string[]).map((item) => {
+            return item;
+          })}` || "Not found";
         return output;
-        break;
       case rightInformationTable[1].title:
-        output = `${(info.dataForTitle as currenciesType[]).map((item) => {
-          return item.code;
-        })}`;
+        output =
+          `${(info.dataForTitle as currenciesType[]).map((item) => {
+            return item.code;
+          })}` || "Not found";
         return output;
-        break;
       case rightInformationTable[2].title:
-        output = `${(info.dataForTitle as languagesType[]).map((language) => {
-          return language.name;
-        })}`;
+        output =
+          (info.dataForTitle as languagesType[]).reduce((acc, rec) => {
+            if (!acc) return `${rec.name}`;
+            return `${acc}, ${rec.name}`;
+          }, "") || "Not found";
         return output;
-        break;
       default:
         return (output = "Something went wrong... ");
     }
@@ -128,7 +147,7 @@ export function CountryPageComponent() {
         countriesList.push(countryFullName[0].name);
       }
     }
-    
+
     if (!countriesList.includes("None")) {
       return (
         <>
